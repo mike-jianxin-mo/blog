@@ -1,7 +1,7 @@
 ---
 title: Magento - Type Vs Virtual Type
 author: Mike Mo
-date: 2021-10-17
+date: 2021-11-01
 category: Magento
 layout: post
 ---

@@ -24,4 +24,5 @@ It's pattern for sprintf() function that creates new id. To remove leading zeros
     </arguments>
 </type>
 ```
+
 or extend Sequence class and change as you need

@@ -13,3 +13,7 @@ The page_types.xml file allows an admin to add custom content to all the control
 Ref: https://magento.stackexchange.com/questions/222989/what-is-the-use-of-page-types-xml-at-magento2
 
 ##### page_types.xml
+
+##### insert positions:
+The containers!
+

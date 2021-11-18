@@ -7,7 +7,7 @@ layout: post
 ---
 
 ### Layout Handler
-checkout_item_renderers.xml
+<strong>checkout_item_renderers.xml</strong>
 
 ### Injection
 - Example
@@ -114,3 +114,9 @@ Extend the actions section with a frontend JS feature.
 
 Example: add giftcard message to each quote item.
 vendor/magento/module-gift-message/view/frontend/layout/checkout_cart_item_renderers.xml
+
+
+# Recap
+- Blocks are parts.
+- RendererList is a general design pattern in Magento.
+- Joints are defined in a layout handler

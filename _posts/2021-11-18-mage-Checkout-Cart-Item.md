@@ -116,7 +116,8 @@ Example: add giftcard message to each quote item.
 vendor/magento/module-gift-message/view/frontend/layout/checkout_cart_item_renderers.xml
 
 
-# Recap
+## Recap
+
 - Blocks are parts.
 - RendererList is a general design pattern in Magento.
 - Joints are defined in a layout handler

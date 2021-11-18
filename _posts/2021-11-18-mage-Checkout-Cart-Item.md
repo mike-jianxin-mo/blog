@@ -6,12 +6,10 @@ category: Magento
 layout: post
 ---
 
-### Checkout Cart Item
-
-#### Layout Handler
+### Layout Handler
 checkout_item_renderers.xml
 
-#### Injection
+### Injection
 - Example
   - vendor/magento/module-multishipping/view/frontend/layout/multishipping_checkout_addresses.xml
   - vendor/magento/module-multishipping/view/frontend/layout/multishipping_checkout_shipping.xml
@@ -47,7 +45,7 @@ checkout_item_renderers.xml
     </page>
 
   ```
-##### Main Block
+### Main Block
 - Magento\Framework\View\Element\RendererList
 - Notes:
   - main function: getRenderer
@@ -96,7 +94,8 @@ class RendererList extends AbstractBlock
     }
 }
 ```
-##### Parts
+
+### Parts
 Define the renders for different product type, the type name is defined in the as attribute of the block.
 
 Example: vendor/magento/module-checkout/Block/Cart/Item/Renderer.php
@@ -110,7 +109,7 @@ Example: vendor/magento/module-checkout/Block/Cart/Item/Renderer.php
 </block>
 ```
 
-#### Extend Parts
+### Extend Parts
 Extend the actions section with a frontend JS feature.
 
 Example: add giftcard message to each quote item.

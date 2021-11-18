@@ -8,19 +8,23 @@ layout: post
 
 ### Checkout Cart Item
 
-##### Layout Handler
+#### Layout Handler
 checkout_item_renderers.xml
 
-##### Injection
+#### Injection
 - Example
   - vendor/magento/module-multishipping/view/frontend/layout/multishipping_checkout_addresses.xml
   - vendor/magento/module-multishipping/view/frontend/layout/multishipping_checkout_shipping.xml
+  
 - Injection Point
     ```
     <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
     ```
+
 - Injection approach
+  
   ./vendor/magento/module-checkout/view/frontend/layout/checkout_cart_item_renderers.xml
+  
   ```
   <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
         <update handle="checkout_item_price_renderers"/>
@@ -50,6 +54,7 @@ checkout_item_renderers.xml
   - Data: array, rendererTemplates=[]
   - <strong>Joint key: Type</strong>
 - Codes
+  
 ```
 class RendererList extends AbstractBlock
 {
@@ -105,7 +110,7 @@ Example: vendor/magento/module-checkout/Block/Cart/Item/Renderer.php
 </block>
 ```
 
-##### Extend Parts
+#### Extend Parts
 Extend the actions section with a frontend JS feature.
 
 Example: add giftcard message to each quote item.

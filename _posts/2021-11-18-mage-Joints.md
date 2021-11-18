@@ -13,6 +13,7 @@ layout: post
 
 - [Cart Item Renderer](2021-11-18-mage-Checkout-Cart-Item.md)
 - [RendererList]()
+  
 #### Feature
 - [New Price Rules](2021-11-05-mage-price-rules.md)
 - [Total](2021-11-12-mage-Total.md)

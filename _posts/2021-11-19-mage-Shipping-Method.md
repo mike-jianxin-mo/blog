@@ -13,6 +13,7 @@ layout: post
 - Add show/hide condition to the getAddress function. 
   - (???)Use observer to implement.
   - After Plugin  
+  - Override the Webservice API
 
 ### Joint definition
 Define in the <strong>config.xml</strong>
@@ -212,6 +213,19 @@ di.xml
 ```
 
 [codes](https://gist.github.com/mike-jianxin-mo/a0aa6cc820ac28d4d53471faa366dc06)
+
+Override the following function:
+```
+public function afterGetGroupedAllShippingRates(\Magento\Quote\Model\Quote\Address $subject, $rates)
+```
+
+### Hide/Show - Override the webservice API
+
+Override the webapi interface:
+
+```
+\Magento\Quote\Model\ShippingMethodManagement::getShippingMethods
+```
 
 ### Ref
 [A simple shipping method](https://www.mageplaza.com/devdocs/magento-2-create-shipping-method/)

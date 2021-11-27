@@ -35,3 +35,36 @@ layout: post
   
 Ref:
 https://devdocs.magento.com/guides/v2.4/extension-dev-guide/declarative-schema/data-patches.html
+
+### Router
+Ref: https://devdocs.magento.com/guides/v2.4/extension-dev-guide/routing.html
+
+- Note: the route Id in routes.xml is the route name listed bellow.
+frontend area routers:
+
+- NAME	SORT ORDER	DESCRIPTION
+robots	10	Matches request to the robots.txt file
+urlrewrite	20	Matches requests with URL defined in the database
+standard	30	The standard router
+cms	60	Matches requests for CMS pages
+default	100	The default router
+
+
+- adminhtml area routers:
+
+NAME	SORT ORDER	DESCRIPTION
+admin	10	Matches requests in the Magento admin area
+default	100	The default router for the admin area
+
+- extend point
+  ```
+    \Magento\Framework\App\RouterList
+  ```
+  
+### Command Line
+
+extend point 
+```
+Magento\Framework\Console\CommandListInterface
+Magento\Framework\Console\CommandList
+```

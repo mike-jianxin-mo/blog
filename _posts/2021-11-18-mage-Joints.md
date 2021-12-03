@@ -17,4 +17,4 @@ layout: post
 #### Feature
 - [New Price Rules](2021-11-05-mage-price-rules.md)
 - [Total](2021-11-12-mage-Total.md)
-- []()
+- [New Product Types](2021-12-03-mage-Cataog-ProductType.md)

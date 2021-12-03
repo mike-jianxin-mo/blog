@@ -1,0 +1,55 @@
+---
+title: Magento - Product Type
+author: Mike Mo
+date: 2021-12-03
+category: Magento
+layout: post
+---
+
+Ref: https://aureatelabs.com/magento-2/how-to-create-a-new-product-type-in-magento-2/
+
+### product_types.xml
+```
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/product_types.xsd">
+    <type name="configurable" label="Configurable Product" modelInstance="Magento\ConfigurableProduct\Model\Product\Type\Configurable" composite='true' indexPriority="30" sortOrder="20">
+        <priceModel instance="Magento\ConfigurableProduct\Model\Product\Type\Configurable\Price" />
+        <indexerModel instance="Magento\ConfigurableProduct\Model\ResourceModel\Product\Indexer\Price\Configurable" />
+        <stockIndexerModel instance="Magento\ConfigurableProduct\Model\ResourceModel\Indexer\Stock\Configurable" />
+        <customAttributes>
+            <attribute name="refundable" value="true"/>
+        </customAttributes>
+    </type>
+</config>
+```
+
+### Settings
+In type, the node has three required attributes.
+
+- name: new product type code
+- label: new product type name
+- modelInstance: new product type model
+
+You can also specify the below attributes
+
+- indexPriority: priority index
+- isQty: whether it has a quantity
+- sortOrder: position number in the sort list
+
+Although there are many other nodes and attributes that can influence the product type definition, this is an illustration of the simplest case.
+
+Also, we are capable to override such internal models:
+
+- priceModel: the model of a price
+- indexerModel: the model of indexing logic
+- stockIndexerModel: the model of stock indexing
+
+### Main Instance Class
+\Magento\Catalog\Model\Product\Type\AbstractType
+
+
+#### Main Usage
+- Generate SKU
+- Manage the child items
+- Prepare for the cart operations
+

@@ -68,3 +68,8 @@ extend point
 Magento\Framework\Console\CommandListInterface
 Magento\Framework\Console\CommandList
 ```
+
+### Customer Configuration Used in Form
+```
+use_in_form
+```

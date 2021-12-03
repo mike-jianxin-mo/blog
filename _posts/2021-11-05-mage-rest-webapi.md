@@ -6,11 +6,9 @@ category: Magento
 layout: post
 ---
 
-### Web API
+### Alias of the webapi
 
-###### Alias of the webapi
-
-You can configure REST endpoints in your module to use custom routes (aliases) for URLs instead of the default URLs. For example, you can define the alias createWidget to represent POST V1/widgets. However, you cannot create an alias for a route that contains one or more variables, such as PUT V1/widgets/:widgetId.
+You can configure REST endpoints in your module to use custom routes (aliases) for URLs instead of the default URLs. For example, you can define the alias createWidget to represent POST V1/widgets. <strong>However, you cannot create an alias for a route that contains one or more variables, such as PUT V1/widgets/:widgetId.</strong>
 
 To define custom routes, create an etc/webapi_async.xml file in your module that contains the following structure:
 
@@ -26,3 +24,8 @@ Ref: https://devdocs.magento.com/guides/v2.4/extension-dev-guide/webapi/custom-r
 </services>
 
 ```
+
+### Get request parameters in webapi with GET method
+- Search Criteria
+  
+- Use requests(?) or by defined object/class

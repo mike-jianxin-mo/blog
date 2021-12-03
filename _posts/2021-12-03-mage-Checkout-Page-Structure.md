@@ -1,0 +1,259 @@
+---
+title: Magento - Checkout Page Structure
+author: Mike Mo
+date: 2021-12-03
+category: Magento
+layout: post
+---
+
+### The product info in checkout pages
+In the checkout cart/order pages, there is a inject section for additional production info.
+
+sales_order_view.xml
+```
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="sales_order_item_renderers"/>
+    <update handle="sales_order_item_price"/>
+    <update handle="sales_order_info_links"/>
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\Sales\Block\Order\Info" name="order.status" template="Magento_Sales::order/order_status.phtml"/>
+            <block class="Magento\Sales\Block\Order\Info" name="order.date" template="Magento_Sales::order/order_date.phtml"/>
+            <container name="order.actions.container" htmlTag="div" htmlClass="actions-toolbar order-actions-toolbar">
+                <block class="Magento\Sales\Block\Order\Info\Buttons" as="buttons" name="sales.order.info.buttons" cacheable="false"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="sales.order.info.buttons">
+            <block class="Magento\Sales\Block\Order\Info\Buttons\Rss" as="buttons.rss" name="sales.order.info.buttons.rss" cacheable="false"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Order\View" name="order.comments" template="Magento_Sales::order/order_comments.phtml" before="sales.order.info.links"/>
+            <block class="Magento\Sales\Block\Order\View" name="sales.order.view" cacheable="false" after="sales.order.info.links">
+                <block class="Magento\Sales\Block\Order\Items" name="order_items" template="Magento_Sales::order/items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.order.items.renderers" as="renderer.list"/>
+                    <block class="Magento\Theme\Block\Html\Pager" name="sales_order_item_pager"/>
+                    <block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="Magento_Sales::order/totals.phtml">
+                        <arguments>
+                            <argument name="label_properties" xsi:type="string">colspan="4" class="mark"</argument>
+                            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                        </arguments>
+                        <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="Magento_Tax::order/tax.phtml"/>
+                    </block>
+                </block>
+            </block>
+            <block class="Magento\Sales\Block\Order\Info" as="info" name="sales.order.info" after="sales.order.view"/>
+        </referenceContainer>
+        <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
+    </body>
+</page>
+
+```
+
+checkout_cart_index.xml
+```
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_cart_item_renderers"/>
+    <body>
+        <referenceContainer name="page.messages">
+            <block class="Magento\Checkout\Block\Cart\ValidationMessages" name="checkout.cart.validationmessages"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Checkout\Block\Cart" name="checkout.cart" template="Magento_Checkout::cart.phtml" cacheable="false">
+                <container name="checkout.cart.items" as="with-items">
+                    <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container" before="-">
+                        <container name="checkout.cart.form.before" as="form_before" label="Shopping Cart Items Before" htmlTag="div" htmlClass="rewards"/>
+                        <container name="cart.summary" label="Cart Summary Container" htmlTag="div" htmlClass="cart-summary" after="-">
+                            <block class="Magento\Framework\View\Element\Template" name="checkout.cart.summary.title" before="-" template="Magento_Theme::text.phtml">
+                                <arguments>
+                                    <argument translate="true" name="text" xsi:type="string">Summary</argument>
+                                    <argument name="tag" xsi:type="string">strong</argument>
+                                    <argument name="css_class" xsi:type="string">summary title</argument>
+                                </arguments>
+                            </block>
+                            <block class="Magento\Checkout\Block\Cart\Shipping" name="checkout.cart.shipping" as="shipping" template="Magento_Checkout::cart/shipping.phtml" after="checkout.cart.summary.title">
+                                <arguments>
+                                    <argument name="jsLayout" xsi:type="array">
+                                        <item name="types" xsi:type="array">
+                                            <item name="form.input" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                    <item name="deps" xsi:type="array">
+                                                        <item name="0" xsi:type="string">checkoutProvider</item>
+                                                    </item>
+                                                    <item name="template" xsi:type="string">ui/form/field</item>
+                                                    <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="components" xsi:type="array">
+                                            <item name="summary-block-config" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="shipping-rates-validation" xsi:type="array">
+                                                        <item name="children" xsi:type="array">
+                                                            <!--Step configuration components-->
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="block-summary" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="deps" xsi:type="array">
+                                                    <item name="0" xsi:type="string">summary-block-config</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                    <item name="block-rates" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/shipping-rates</item>
+                                                        <item name="sortOrder" xsi:type="string">2</item>
+                                                    </item>
+                                                    <item name="block-shipping" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/shipping-estimation</item>
+                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                        <item name="sortOrder" xsi:type="string">1</item>
+                                                        <item name="deps" xsi:type="array">
+                                                            <item name="0" xsi:type="string">block-summary.block-shipping.address-fieldsets</item>
+                                                        </item>
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="address-fieldsets" xsi:type="array">
+                                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                                <item name="config" xsi:type="array">
+                                                                    <item name="deps" xsi:type="array">
+                                                                        <item name="0" xsi:type="string">checkoutProvider</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="displayArea" xsi:type="string">address-fieldsets</item>
+                                                                <item name="children" xsi:type="array">
+                                                                    <item name="city" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">115</item>
+                                                                        <item name="dataScope" xsi:type="string">shippingAddress.city</item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    </item>
+                                                                    <item name="country_id" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">110</item>
+                                                                        <item name="dataScope" xsi:type="string">shippingAddress.country_id</item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    </item>
+                                                                    <item name="region_id" xsi:type="array">
+                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/region</item>
+                                                                        <item name="sortOrder" xsi:type="string">112</item>
+                                                                        <item name="config" xsi:type="array">
+                                                                            <item name="template" xsi:type="string">ui/form/field</item>
+                                                                            <item name="elementTmpl" xsi:type="string">ui/form/element/select</item>
+                                                                            <item name="customEntry" xsi:type="string">shippingAddress.region</item>
+                                                                        </item>
+                                                                        <!-- Value of region_id field is filtered by the value of county_id attribute -->
+                                                                        <item name="filterBy" xsi:type="array">
+                                                                            <item name="target" xsi:type="string"><![CDATA[${ $.provider }:${ $.parentScope }.country_id]]></item>
+                                                                            <item name="field" xsi:type="string">country_id</item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <!-- The following items override configuration of corresponding address attributes -->
+                                                                    <item name="region" xsi:type="array">
+                                                                        <!-- Make region attribute invisible on frontend. Corresponding input element is created by region_id field -->
+                                                                        <item name="visible" xsi:type="boolean">false</item>
+                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                        <item name="sortOrder" xsi:type="string">111</item>
+                                                                        <item name="dataScope" xsi:type="string">shippingAddress.region</item>
+                                                                    </item>
+                                                                    <item name="postcode" xsi:type="array">
+                                                                        <!-- post-code field has custom UI component -->
+                                                                        <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                                                        <item name="dataScope" xsi:type="string">shippingAddress.postcode</item>
+                                                                        <item name="sortOrder" xsi:type="string">114</item>
+                                                                        <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                            <item name="checkoutProvider" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                            </item>
+                                        </item>
+                                    </argument>
+                                </arguments>
+                            </block>
+                            <container name="checkout.cart.totals.container" as="totals" label="Shopping Cart Totals">
+                                <block class="Magento\Checkout\Block\Cart\Totals" name="checkout.cart.totals" template="Magento_Checkout::cart/totals.phtml">
+                                    <arguments>
+                                        <argument name="jsLayout" xsi:type="array">
+                                            <item name="components" xsi:type="array">
+                                                <item name="block-totals" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/totals</item>
+                                                    <item name="displayArea" xsi:type="string">totals</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="template" xsi:type="string">Magento_Checkout/cart/totals</item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <!-- sort order for this totals is configured on admin panel-->
+                                                        <!-- Stores->Configuration->SALES->Sales->General->Checkout Totals Sort Order -->
+                                                        <item name="subtotal" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/subtotal</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Subtotal</item>
+                                                                <item name="template" xsi:type="string">Magento_Checkout/cart/totals/subtotal</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="shipping" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/cart/totals/shipping</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Shipping</item>
+                                                                <item name="template" xsi:type="string">Magento_Checkout/cart/totals/shipping</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="grand-total" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/grand-total</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Order Total</item>
+                                                                <item name="template" xsi:type="string">Magento_Checkout/cart/totals/grand-total</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </argument>
+                                    </arguments>
+                                </block>
+                            </container>
+                            <block class="Magento\Checkout\Block\Cart\Coupon" name="checkout.cart.coupon" as="coupon" template="Magento_Checkout::cart/coupon.phtml"/>
+                            <block class="Magento\Checkout\Block\Cart" name="checkout.cart.methods.bottom" template="Magento_Checkout::cart/methods.phtml">
+                                <container name="checkout.cart.methods" as="methods" label="Payment Methods After Checkout Button">
+                                    <block class="Magento\Checkout\Block\Onepage\Link" name="checkout.cart.methods.onepage.bottom" template="Magento_Checkout::onepage/link.phtml" />
+                                    <block class="Magento\Checkout\Block\QuoteShortcutButtons" name="checkout.cart.shortcut.buttons" />
+                                </container>
+                            </block>
+                        </container>
+                        <block class="Magento\Checkout\Block\Cart\Grid" name="checkout.cart.form" as="cart-items" template="Magento_Checkout::cart/form.phtml" after="cart.summary">
+                            <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+                            <block class="Magento\Framework\View\Element\Text\ListText" name="checkout.cart.order.actions"/>
+                        </block>
+                        <container name="checkout.cart.widget" as="checkout_cart_widget" label="Shopping Cart Items After"/>
+                    </container>
+                    <block class="Magento\Checkout\Block\Cart\Crosssell" name="checkout.cart.crosssell" template="Magento_Catalog::product/list/items.phtml" after="-" ifconfig="checkout/cart/crosssell_enabled">
+                        <arguments>
+                            <argument name="type" xsi:type="string">crosssell</argument>
+                            <argument name="view_model" xsi:type="object">Magento\Catalog\ViewModel\Product\Listing\PreparePostData</argument>
+                        </arguments>
+                        <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="crosssell.product.addto" as="addto">
+                            <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare"
+                                   name="crosssell.product.addto.compare" as="compare"
+                                   template="Magento_Catalog::product/list/addto/compare.phtml"/>
+                        </block>
+                    </block>
+                </container>
+                <container name="checkout.cart.noitems" as="no-items">
+                    <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
+                        <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
+                    </block>
+                </container>
+            </block>
+        </referenceContainer>
+        <block class="Magento\Checkout\Block\Cart\Additional\Info" name="additional.product.info" template="Magento_Checkout::cart/additional/info.phtml"/>
+    </body>
+</page>
+
+```

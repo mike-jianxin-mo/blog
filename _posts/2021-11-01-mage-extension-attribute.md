@@ -6,7 +6,7 @@ category: Magento
 layout: post
 ---
 
-#### Introduction
+### Introduction
 Third-party developers <strong>cannot change the API Data interfaces defined in the Magento Core code</strong>. However, most of these entities have a feature called <strong>extension attributes</strong>. 
 
 Check the interface for the methods getExtensionAttributes() and setExtensionAttributes() to determine if they are available for the entity.
@@ -43,7 +43,12 @@ Example: <strong>Product Enitty</strong>
 
     ```
 
-#### Use with Plugin
+### Extensive Attribute VS EAV Attribute
+Custom attributes are the attributes added to describe an entity, such as product attributes, customer attributes etc. These are a subset of EAV attributes.
+
+Extension attributes on the other hand are generally used for more complex data types such as adding additional complex data into an entity from a custom external table.
+
+### Use with Plugin
 In order to add extension attributes, we need to use an after plugin on Product Repository. The plugin should be declared for the methods: save, get and getList.
 
 - After Get
@@ -63,5 +68,8 @@ public function afterGet
 }
 ```
 
-#### Use with extensionActions
+### With ACL 
+[Extensive Attribute with ACL](2021-11-28-mage-ACL.md)
+
+### Use with extensionActions
 

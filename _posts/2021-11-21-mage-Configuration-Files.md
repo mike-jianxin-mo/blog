@@ -19,6 +19,7 @@ layout: post
 - Request Flow
   - routes.xml
   - webapi.xml
+  - webapi_async.xml
   - websoap.xml
   - graphql.php
   
@@ -60,7 +61,11 @@ layout: post
     - layout handlers
   - Widgets
     - page_types.xml
+    - widget.xml
 
+- Event Extending Approach
+  - events.xml
+  
 - Feature
   - sales.xml
 

@@ -28,3 +28,9 @@ layout: post
     Since the terminal won’t return an error msg to help you fix the issue, you can resort to the following hack to discover the missing piece in your db_schema file.
     ... ...
   
+  - DI
+    - command
+    Get the di.xml command information about a class name. 
+    ```
+    bin/magento dev:di:info "Magento\Quote\Model\Quote\Item\ToOrderItem"
+    ```

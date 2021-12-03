@@ -1,17 +1,12 @@
 ---
-title: Magento - UI: The Layout, Block, and Template
+title: Magento - UI: The Layout & Controller
 author: Mike Mo
 date: 2021-11-12
 category: Magento
 layout: post
 ---
 
-### UI: The Layout, Block, and Template
-
-##### Understanding Layout
-Layout means page layout, it is used for the result page class.
-
-##### Origin: A return type of the controller object
+### Origin: A return type of the controller object
 
 - <strong>\Magento\Framework\View\Result\Page - actually renders HTML </strong>
 - \Magento\Framework\Controller\Result\Redirect - redirects to another page
@@ -21,7 +16,7 @@ Layout means page layout, it is used for the result page class.
 
 Ref: https://magento.stackexchange.com/questions/240856/what-is-the-use-of-pagefactory-in-magento-2
 
-##### The Root template
+### The Root template
 - Definition Location
   - app/etc/di.xml
   - magnto2-base/app/etc/di.xml
@@ -59,8 +54,10 @@ Ref: https://magento.stackexchange.com/questions/240856/what-is-the-use-of-pagef
     </html>
   ```
 
-##### The starting points of the page layout
+### The starting points of the page layout
   I grep the container named root in the layout files. I found many results, and I think this is the root layout settings for the pages. Because in these files there is no referenceContainer settings.
+  - Page Layout
+    The layout files according to the controler/routes.
   ```
   grep -r 'container name="root"' .
 ./app/design/adminhtml/Magento/backend/IWD_OrderManager/layout/iwdordermanager_warehouses_product_grid.xml:    <container name="root" label="Root">
@@ -105,7 +102,7 @@ Ref: https://magento.stackexchange.com/questions/240856/what-is-the-use-of-pagef
 ... ...
   ```
 
-##### Layout handles - The basic sections of pages
+### Layout handles - The basic sections of pages
 A layout handle is a uniquely identified set of layout instructions that serves as a name of a layout file.
 
 There are three kinds of layout handles:
@@ -115,12 +112,14 @@ There are three kinds of layout handles:
 - arbitrary handles - Do not correspond to any page type, but other handles use them by including.
 
 
-##### Organiser of the Layout Handlers
-- update
+### Organiser of the Layout Handlers
+- <strong>update</strong>
   The specified handle is “included” and executed recursively.
   This is the key to combine all parts of the layout files together.
 
-##### The Organised Examples of the main layouts
+### The Organised Examples of the main layouts
+- Definition
+  layout\ <strong>layouts.xml</strong>
 - Relations:
   <strong> empty.xml --> 1column.xml --> 2clumns-left.xml --> 2column-right.xml </strong>
 - Layout details:
@@ -183,28 +182,3 @@ There are three kinds of layout handles:
     </layout>
     ```
     
-
-##### The default page structure: Default.xml
-- Basic Layout file: default.xml
-  All the global layout updates should be put here. Such as the Facebook pixel, Google Tag Manager, ... ...
-
-- This is a 3columns layout.
-  ```
-  <page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <update handle="default_head_blocks"/>
-    <body>
-  ```
-
-##### layout elements
-- container
-  Containers in a container
-  ```
-    <?xml version="1.0"?>
-    <layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
-
-        <referenceContainer name="page.wrapper">
-            <container name="some.container" as="someContainer" label="Some Container" htmlTag="div" htmlClass="some-container" />
-        </referenceContainer>
-    </layout>
-
-  ```

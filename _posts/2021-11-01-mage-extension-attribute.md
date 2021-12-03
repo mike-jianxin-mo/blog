@@ -48,7 +48,10 @@ Custom attributes are the attributes added to describe an entity, such as produc
 
 Extension attributes on the other hand are generally used for more complex data types such as adding additional complex data into an entity from a custom external table.
 
-### Use with Plugin
+### Read 
+Extensive attributes can be auto loaded, if it has been defined in the extensive_attribute.xml.
+
+### Save/Update: Use with Plugin
 In order to add extension attributes, we need to use an after plugin on Product Repository. The plugin should be declared for the methods: save, get and getList.
 
 - After Get

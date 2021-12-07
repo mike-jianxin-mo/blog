@@ -9,8 +9,18 @@ layout: post
 ### Understanding Layout
 Layout means page layout, it is used for the result page class.
 
+### Layout activive 
+- Header
+  default_head_blocks
+
+- Page Layout
+  -   To make layout changes available on every page, modify the default.xml file.
+  - To add layout changes to a specific page, use a layout file that corresponds to the page’s path. For example, changes to the app/code/Vendor/Module/view/frontend/layout/catalog_product_view.xml page are loaded on the product details page.
+
 ### The default page structure: Default.xml
 - Basic Layout file: default.xml
+  To make layout changes available on every page, modify the default.xml file.
+  
   All the global layout updates should be put here. Such as the Facebook pixel, Google Tag Manager, ... ...
 
 - This is a 3columns layout.
@@ -33,3 +43,7 @@ Layout means page layout, it is used for the result page class.
     </layout>
 
   ```
+  - action
+    The <action> instruction is deprecated. If the method implementation allows, use the <argument> for <block> or <referenceBlock> to access the block public API.
+
+    This means that the setTemplate is no longer exist.

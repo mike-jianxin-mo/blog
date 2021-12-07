@@ -68,6 +68,10 @@ layout: post
   
 - Feature
   - sales.xml
+  - view.xml
+    The properties of product images used on the storefront are stored in the view.xml configuration file. 
+  - fieldset.xml
+    Define the fields need to be copied from quote to order entity.
 
 - Predefined Joints
   - custom_account.xml
@@ -93,3 +97,4 @@ layout: post
   - extend core feature with template updates
   - use a proxy
   - add a price modifier
+  - copy a custom field from quote to order

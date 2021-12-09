@@ -21,7 +21,47 @@ checkout_cart_add_product_complete
 Magento\Shipping\Model\Carrier\CarrierInterface
 ```
 
-### Extend Checkout UI component fields
+### Handler 
+- Add a new Checkout UI component fields
+    ```
+    checkout_index_index.xml
+    ```
+- Category admin form
+  ```
+  catalog_attributes.xml
+  ```
+- Account section
+  - Order history
+    ```
+    sales.order.history.extra.column.header
+    sales.order.history.extra.container
+    ```
+
+### No Cart
+Cart.php deprecated.
+
+### Module Sequence
+- layout
+- view files
+- setup
+  
+Not afffect the classes.
+
+### Extensive attribute
 ```
-checkout_index_index.xml
+Magento\Framework\Api\ExtensibleDataInterface
+```
+ExtensibleDataInterface?
+In the example above the HamburgerInterface extends the ExtensibleDataInterface.
+Technically this is only required if you want other modules to be able to add attributes to your entity.
+If so, you also need to add another getter/setter pair, by convention called getExtensionAttributes() and setExtensionAttributes().
+
+### Fee 
+```
+\Magento\Quote\Model\Quote\Address\Total\AbstractTotal
+```
+
+### Price
+```
+Magento\Framework\Pricing\Price\AbstractPrice
 ```

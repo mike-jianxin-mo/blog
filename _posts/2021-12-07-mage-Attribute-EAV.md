@@ -12,7 +12,7 @@ layout: post
 
 ### show in Admin
 - custom
-  - use_inform
+  - used_in_forms
 - Others
   - update the form layout
 

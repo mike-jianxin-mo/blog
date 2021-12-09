@@ -31,7 +31,7 @@ layout: post
   - mview.mxl
 
 - Cache
-  - caches.xml
+  - cache.xml
   
 - Model
   - db_schema.xml

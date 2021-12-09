@@ -71,5 +71,5 @@ Magento\Framework\Console\CommandList
 
 ### Customer Configuration Used in Form
 ```
-use_in_form
+used_in_forms
 ```

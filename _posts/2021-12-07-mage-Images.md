@@ -24,3 +24,24 @@ Ref: https://www.emiprotechnologies.com/technical_notes/magento-technical-notes-
 
 ### Use in codes
 
+- in phtml/php:
+  - Ref: https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/themes/theme-images.html
+  - getVar('');
+    ```
+    <vars module="Magento_Catalog">
+        <var name="breakpoints">
+            <var name="mobile">
+                <var name="conditions">
+                    <var name="max-width">767px</var>
+                </var>
+                ...
+            </var>
+        </var>
+        ...
+    </vars>
+    ```
+    ```
+    $block->getVar($name, $module = null)
+    ```
+    *** The setting can be get directly!!! ***
+

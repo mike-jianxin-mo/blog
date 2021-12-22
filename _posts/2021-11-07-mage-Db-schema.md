@@ -12,7 +12,9 @@ layout: post
 bin/magento setup:install --convert-old-scripts=1
 bin/magento setup:upgrade --convert-old-scripts=1
 ```
+
 ### Remove Foreign Key
+Foreign key must be declared in schema xml file before it can be managed with it.
 <strong>disabled="true"</strong>
 ```
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">

@@ -6,18 +6,18 @@ category: Magento
 layout: post
 ---
 
-##### Definition
+### Definition
 
 A view model is an abstraction of the view exposing public properties and commands. It allows developers to offload features and business logic from block classes into separate classes that are easier to maintain, test, and reuse.
 
-##### When to use
+### When to use
 
 - Use this approach anytime you need to inject functionality into template files and your code <strong>does not need to be backwards compatible with Magento</strong>.
 
 - <strong>Replace the helper functions</strong>
 The use of helpers in templates is discouraged. It is recommended to use view models instead.
 
-##### How to write view models
+### How to write view models
 
 1. XML definition
    - New block

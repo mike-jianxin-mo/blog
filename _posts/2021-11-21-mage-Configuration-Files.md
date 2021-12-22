@@ -17,7 +17,7 @@ layout: post
   - module.xml
 
 - Request Flow
-  - routes.xml
+  - <strong>routes.xml</strong> has 's'
   - webapi.xml
   - webapi_async.xml
   - websoap.xml
@@ -39,10 +39,10 @@ layout: post
     fields listed in the whitelist will be managed by Magento system!
     eg. remove one field. 
         only success when the field name in the whitelist.
-  - extension_attributes.xml
+  - <strong>extension_attributes.xml</strong> has 's'
 
 - Cron
-  - cron_groups.xml
+  - <strong>cron_groups.xml</strong> has 's'
     eg. ./vendor/magento/module-indexer/etc/cron_groups.xml
   - crontab.xml
     eg. ./vendor/magento/module-indexer/etc/crontab.xml
@@ -56,7 +56,7 @@ layout: post
     - theme.xml
     - registration.php
   - Layout & templates
-    - layouts.xml
+    - <strong>layouts.xml</strong> has 's'
     - page layouts
     - layout handlers
   - Widgets
@@ -64,10 +64,11 @@ layout: post
     - widget.xml
 
 - Event Extending Approach
-  - events.xml
+  - <strong>events.xml</strong> has 's'
   
 - Feature
   - sales.xml
+  - product_types.xml
   - view.xml
     The properties of product images used on the storefront are stored in the view.xml configuration file. 
   - fieldset.xml
@@ -98,3 +99,4 @@ layout: post
   - use a proxy
   - add a price modifier
   - copy a custom field from quote to order
+  - add an index and its mview.xml settings

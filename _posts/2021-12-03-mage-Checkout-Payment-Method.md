@@ -7,7 +7,3 @@ layout: post
 ---
 
 ### 
-
-prepareLayout()
-
-toHtml()

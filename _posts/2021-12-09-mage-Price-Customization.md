@@ -6,6 +6,11 @@ category: Magento
 layout: post
 ---
 
+### Extend class
+```
+\Magento\Catalog\Model\Product\Type\Price
+```
+
 ### New a new basic price type
 
 Create a new price type and add it to the set of basic types. 
